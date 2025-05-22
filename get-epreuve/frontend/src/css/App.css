@@ -1,0 +1,15 @@
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: currentColor;
+}
+
+
+body {
+  color: var(--label);
+  background-color: var(--bg-color);
+}
+

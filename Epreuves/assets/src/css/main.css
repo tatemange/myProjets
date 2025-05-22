@@ -1,0 +1,42 @@
+
+@font-face {
+    font-family: font;
+    src: url(../fonts/GoogleSans-Regular.woff2);
+}
+
+:root {
+    font-family: font;
+    font-size: .94rem;
+    --bg-color: black;
+    --bg-color-dark: #1c1c1e; 
+    --bg-color-light: #212121; 
+    --bg-color-light2: #303030;
+    --border-color: #424245;
+    --border-color-active: #86868b;
+
+    --border: 1px solid var(--border-color);
+    --label: #fff;
+    --secondaryLabel: #8d8d93;
+    --tertiaryLabel: #47474a;
+    --quaternaryLabel: #2a2a2c;
+    --first-color: #ff5317;
+
+    --max-width: 1024px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: currentColor;
+}
+
+body {
+    color: var(--label);
+    background-color: var(--bg-color);
+}
+
+
+
+body {
+}

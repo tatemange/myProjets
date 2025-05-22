@@ -1,0 +1,201 @@
+@font-face {
+    font-family: "font";
+    src: url(../fonts/Nunito-Regular.ttf);
+}
+
+
+:root {
+    font-family: "font", "Helvetica Neue", system-ui; 
+
+    --first-color: #f1571b;
+    --label: #fff;
+    --secondLabel: #848388;
+    --border-color: #383838;
+    --border: 1px solid var(--border-color);
+    --bg-color: #000000;
+    --bg-color-light: #131313;
+    --bg-color-dark: #1e1e1e;
+    --width: clamp(400px, 70vw, 780px);
+    color-scheme: dark;
+    color: var(--label);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: currentColor;
+}
+
+.color {
+    color: var(--first-color);
+}
+
+
+body {
+    background-color: var(--bg-color);
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: var(--width);
+    padding: 2rem;
+}
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+
+.setColor {
+    display: flex;
+    gap: .5rem;
+}
+
+.setColor .input {
+    display: flex;
+    flex-direction: column;
+    border: var(--border);
+    transition-duration: .3s;
+    width: 100%;
+    height: 44px;
+    position: relative;
+    background-color: var(--bg-color-dark);
+    border-radius: .3rem;
+    overflow: hidden;
+}
+
+.setColor .input input {
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: .87em;
+    padding-top: 25px;
+}
+
+.setColor .set {
+    background-color: var(--first-color);
+    color: var(--label);
+    border: none;
+    width: 100px;
+    border-radius: .3rem;
+    font-size: .9em;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition-duration: .3s;
+}
+
+.setColor .set:active {
+    background-color: #f1571b55;
+}
+
+.setColor .input input:not(:placeholder-shown) + label,
+.setColor .input input:focus + label {
+    top: 25%;
+    font-size: 75%;
+}
+
+.setColor label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    transition-duration: .3s;
+    color: var(--secondLabel);
+}
+
+
+.pallettes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.pallettes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pallettes .pallette {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 90px);
+    grid-template-rows: repeat(auto-fit, 60px);
+    gap: .5rem;
+}
+
+.pallette .item {
+    display: flex;
+    border-radius: .35rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: .78em;
+    box-shadow: -2px -2px 0 0px var(--border-color), 2px 2px 0 0px var(--first-color);
+}
+
+.item .bg {
+    color: var(--label);
+    mix-blend-mode: difference;
+}
+
+.end {
+    display: flex;
+}
+
+.end button {
+    display: flex;
+    align-items: center;
+    gap: .15rem;
+    height: 30px;
+    padding: 0 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: .25rem;
+    transition-duration: .3s;
+    background-color: var(--bg-color-dark);
+}
+.end button:active {
+    background-color: var(--first-color);
+}
+
+.end svg {
+    width: auto;
+    height: 1.3rem;
+    vertical-align: middle;
+    fill: var(--label);
+}
+
+
+.f-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.f-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.gap-1{
+    gap: 8px;
+}
+.gap-0 {
+    gap: 0;
+}
+.gap-2 {
+    gap: 15px;
+}
+
+.sub-color {
+    color: var(--secondLabel);
+}
+

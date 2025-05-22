@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>List Info – Reminders</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f2f2f7;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      margin-inline: auto;
+      background-color: #4A90E2;
+      color: white;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      margin-bottom: 1.5rem;
+    }
+
+    .color-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .color-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: 0.2s;
+    }
+
+    .color-circle.selected {
+      border-color: black;
+    }
+
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .icon-option {
+      font-size: 1.4rem;
+      padding: 0.5rem;
+      text-align: center;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .icon-option:hover, .icon-option.selected {
+      background-color: #e0e0e0;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      background-color: #007aff;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .footer a {
+      color: #007aff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>List Info</h1>
+    <div class="icon-circle" id="iconDisplay">📋</div>
+    <input type="text" id="listName" placeholder="Reminders" value="Reminders" />
+    
+    <div class="color-palette" id="colorPalette">
+      <!-- Couleurs dynamiquement générées -->
+    </div>
+
+    <div class="icon-grid" id="iconGrid">
+      <!-- Icônes dynamiquement générées -->
+    </div>
+
+    <button id="smartListBtn">Convert to Smart List</button>
+    <div class="footer">
+      <a href="#">Learn more…</a>
+    </div>
+  </div>
+
+  <script>
+    const listSettings = {
+      name: "Reminders",
+      color: "#4A90E2",
+      icon: "📋"
+    };
+
+    const colors = [
+      "#4A90E2", "#50E3C2", "#9013FE", "#F5A623", "#D0021B",
+      "#7ED321", "#F8E71C", "#8B572A", "#B8E986", "#417505",
+      "#BD10E0", "#00BCD4"
+    ];
+
+    const icons = [
+      "📋", "🛒", "🧠", "💼", "🏋️", "🏠", "📚", "✈️", "🎵", "❤️",
+      "🐶", "🍽️", "🌙", "🎓", "🧘", "🛏️", "🧹", "🧳", "🚴", "⚽",
+      "📝", "🎮", "👨‍👩‍👧‍👦", "🏖️", "💡", "🔒", "📅", "🕒", "🔔", "🧪",
+      "📈", "🛠️", "🚗", "🌱", "🎁", "🐱", "📦", "💰", "📌", "🚿",
+      "🎯", "📞", "📷", "🖼️", "🎉", "🧀", "🍎", "🛍️", "⚡", "🎬",
+      "🏫", "🧤", "👔", "🌍", "🕹️", "💻", "📖", "🪴", "🧃", "🏷️"
+    ];
+
+    const colorPalette = document.getElementById("colorPalette");
+    const iconGrid = document.getElementById("iconGrid");
+    const iconDisplay = document.getElementById("iconDisplay");
+    const listNameInput = document.getElementById("listName");
+    const smartListBtn = document.getElementById("smartListBtn");
+
+    // Générer les couleurs
+    colors.forEach(color => {
+      const div = document.createElement("div");
+      div.className = "color-circle";
+      div.style.backgroundColor = color;
+      if (color === listSettings.color) div.classList.add("selected");
+
+      div.addEventListener("click", () => {
+        listSettings.color = color;
+        iconDisplay.style.backgroundColor = color;
+
+        document.querySelectorAll(".color-circle").forEach(c => c.classList.remove("selected"));
+        div.classList.add("selected");
+        console.log(listSettings);
+      });
+
+      colorPalette.appendChild(div);
+    });
+
+    // Générer les icônes
+    icons.forEach(icon => {
+      const span = document.createElement("span");
+      span.className = "icon-option";
+      span.textContent = icon;
+      if (icon === listSettings.icon) span.classList.add("selected");
+
+      span.addEventListener("click", () => {
+        listSettings.icon = icon;
+        iconDisplay.textContent = icon;
+
+        document.querySelectorAll(".icon-option").forEach(i => i.classList.remove("selected"));
+        span.classList.add("selected");
+        console.log(listSettings);
+      });
+
+      iconGrid.appendChild(span);
+    });
+
+    // Mettre à jour le nom
+    listNameInput.addEventListener("input", (e) => {
+      listSettings.name = e.target.value;
+      console.log(listSettings);
+    });
+
+    smartListBtn.addEventListener("click", () => {
+      alert("Smart List conversion coming soon!");
+    });
+
+  </script>
+</body>
+</html>
